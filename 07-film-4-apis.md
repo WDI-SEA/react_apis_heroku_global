@@ -21,13 +21,13 @@ You already have a function where you want the API call to go (`handleDetailsCli
 This step seems complicated, but it isn't! Just take it one step at a time. Because TMDB isn't a public API, you'll need to get an API key to add to your `fetch()` call; then, you'll want to make sure to keep the key in a safe spot.
 
 - To gain access to the TMDB API, you'll need to get an API key from [TMDB](https://www.themoviedb.org).
-  - TMDB only gives API keys to users with accounts, sou'll have to sign up first (it's free). However, it will ask for your phone and address.
+  - TMDB only gives API keys to users with accounts, so you'll have to sign up first (it's free). However, it will ask for your phone and address.
   - Then, request an API key on your profile page ([further instructions](https://developers.themoviedb.org/3/getting-started)).
   - Once you have your API key, you need to include it in your app. Since you **never want to store app secrets in your repository**, you'll use the [`dotenv`](https://github.com/motdotla/dotenv) package to keep the API key in a local file.
 
 
 - You'll need to install `dotenv`.
-  - Run `npm install --save dotenv` on the command line to add the dependency to your `package.json` file
+  - Run `npm install dotenv` on the command line to add the dependency to your `package.json` file
   - Create a new file at the root of your project called `.env.local` (accept the system warning).
   - In your `.env.local` file, add the line `REACT_APP_TMDB_API_KEY=<Your TMDB API v3 KEY>`
 
