@@ -57,9 +57,6 @@ const url = `https://api.themoviedb.org/3/movie/${film.id}?api_key=${TMDB.api_ke
 
 This is the URL to which you'll send your request to get detailed information about each film. You're passing the `film.id` and the `TMDB.api_key` as query string parameters.
 
-- *Note: Using `${film.id}` is a slightly faster shorthand for embedding variables in strings.*
-  - *For example, `const myString = "The " + film.id + " is great"` is the same as writing `const myString = "The ${film.id} is great"`.*
-
 
 #### Step 3: Make the API call
 
@@ -83,11 +80,10 @@ Let's now set your `current` state to be the object you get back from TMDB. Move
 
 ```JavaScript
 fetch(url)
-  .then(response=>response.json())
-  .then(json => { 
-    this.setState({current: json}) 
-  }) // take a look at what you get back!
-})
+.then(response=>response.json())
+.then(json => { 
+	this.setState({current: json}) // take a look at what you get back!
+}) 
 ```
 
 Now, you have the API call to get information about your chosen movie.
