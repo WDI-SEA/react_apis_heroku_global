@@ -138,29 +138,29 @@ When the app loads, there is no film selected to display in `FilmDetails`. When 
 You will store the mark up for each of these scenarios in their own constant variable:
 
 ```html
-    const filmInfo = (
-		<div className="film-detail is-hydrated">
-		  <figure className="film-backdrop">
-		    <img src={backdropUrl} alt="" />
-		    <h1 className="film-title">{this.props.film.title}</h1>
-		  </figure>
+const filmInfo = (
+	<div className="film-detail is-hydrated">
+	  <figure className="film-backdrop">
+	    <img src={backdropUrl} alt="" />
+	    <h1 className="film-title">{this.props.film.title}</h1>
+	  </figure>
 
-		  <div className="film-meta">
-		    <h2 className="film-tagline">{this.props.film.tagline}</h2>
-		    <p className="film-detail-overview">
-		      <img src={posterUrl} className="film-detail-poster" alt={this.props.film.title} />
-		      {this.props.film.overview}
-		    </p>
-		  </div>
-		</div>
+	  <div className="film-meta">
+	    <h2 className="film-tagline">{this.props.film.tagline}</h2>
+	    <p className="film-detail-overview">
+	      <img src={posterUrl} className="film-detail-poster" alt={this.props.film.title} />
+	      {this.props.film.overview}
+	    </p>
+	  </div>
+	</div>
     )
     const emptyInfo = (
         <div className="film-detail">
-		  <p>
-		    <i className="material-icons">subscriptions</i>
-		    <span>No film selected</span>
-		  </p>
-		</div>
+	  <p>
+	    <i className="material-icons">subscriptions</i>
+	    <span>No film selected</span>
+	  </p>
+	</div>
     )
 ```
 
