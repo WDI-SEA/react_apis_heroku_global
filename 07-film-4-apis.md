@@ -69,10 +69,9 @@ Now that you have the API key and URL set up, underneath the new URL variable, f
 ```JavaScript
 const url = `https://api.themoviedb.org/3/movie/${film.id}?api_key=${TMDB.api_key}&append_to_response=videos,images&language=en`
 
-fetch(url).then(response => {
-  response.json().then(data => {
-    console.log(data) // take a look at what you get back!
-  })
+fetch(url)
+.then(response=>response.json())
+.then(json => { console.log(data) }) // take a look at what you get back!
 })
 ```
 
@@ -83,9 +82,11 @@ Try clicking a movie row in your browser - the data for it should appear in the 
 Let's now set your `current` state to be the object you get back from TMDB. Move the `setState` call into the API call.
 
 ```JavaScript
-response.json().then(data => {
-  console.log(data)
-  this.setState({current: data})
+fetch(url)
+  .then(response=>response.json())
+  .then(json => { 
+    this.setState({current: json}) 
+  }) // take a look at what you get back!
 })
 ```
 
@@ -138,15 +139,33 @@ When the app loads, there is no film selected to display in `FilmDetails`. When 
 - The empty scenario (no film selected)
 - The populated scenario (a film selected)
 
-Start with the empty case. Add the following markup below the `.section-title`.
+You will store the mark up for each of these scenarios in their own constant variable:
 
 ```html
-<div className="film-detail">
-  <p>
-    <i className="material-icons">subscriptions</i>
-    <span>No film selected</span>
-  </p>
-</div>
+    const filmInfo = (
+		<div className="film-detail is-hydrated">
+		  <figure className="film-backdrop">
+		    <img src={backdropUrl} alt="" />
+		    <h1 className="film-title">{this.props.film.title}</h1>
+		  </figure>
+
+		  <div className="film-meta">
+		    <h2 className="film-tagline">{this.props.film.tagline}</h2>
+		    <p className="film-detail-overview">
+		      <img src={posterUrl} className="film-detail-poster" alt={this.props.film.title} />
+		      {this.props.film.overview}
+		    </p>
+		  </div>
+		</div>
+    )
+    const emptyInfo = (
+        <div className="film-detail">
+		  <p>
+		    <i className="material-icons">subscriptions</i>
+		    <span>No film selected</span>
+		  </p>
+		</div>
+    )
 ```
 
 #### Step 3: Conditionally render the current film
@@ -156,36 +175,10 @@ To start, create a new variable to hold on to your DOM tree. You'll conditionall
 Add this below the two declared `const` variables:
 
 ```js
-let details
+let details = props.film.id ? filmInfo : emptyInfo
 ```
 
-Now, you need to determine if there is a film to render or not.
-
-To do this, you just need to check if there's an `id` property on the `film` prop passed in to `FilmDetail`.
-- If not, you want to render the empty case you added in the last step.
-- Otherwise, you have a film to show, so you want to present the film details markup (don't copy this over yet):
-
-```html
-<div className="film-detail is-hydrated">
-  <figure className="film-backdrop">
-    <img src={backdropUrl} alt="" />
-    <h1 className="film-title">{props.film.title}</h1>
-  </figure>
-
-  <div className="film-meta">
-    <h2 className="film-tagline">{props.film.tagline}</h2>
-    <p className="film-detail-overview">
-      <img src={posterUrl} className="film-detail-poster" alt={props.film.title} />
-      {props.film.overview}
-    </p>
-  </div>
-</div>
-```
-
-- Your task here is to conditionally assign the film details block of markup to the `details` variable if there is a current `id`.
-  - If there is not a current `id`, instead render the JSX for the empty case.
-- You still want to keep your `section-title`, which isn't part of this conditional.
-  - Therefore, the `return` statement of your `FilmDetails` function should finally look like this:
+Now, the `return` statement of your `FilmDetails` function should finally look like this:
 
 ```html
 return (
