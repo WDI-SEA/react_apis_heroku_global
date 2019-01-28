@@ -68,7 +68,7 @@ const url = `https://api.themoviedb.org/3/movie/${film.id}?api_key=${TMDB.api_ke
 
 fetch(url)
 .then(response=>response.json())
-.then(json => { console.log(data) }) // take a look at what you get back!
+.then(json=>{console.log(json)}) // take a look at what you get back!
 })
 ```
 
